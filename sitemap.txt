@@ -4,7 +4,5 @@ http://superyzs.github.io/about/index.html
 http://superyzs.github.io/404/index.html
 http://superyzs.github.io/tags/index.html
 http://superyzs.github.io/
-http://superyzs.github.io/tags/self/
 http://superyzs.github.io/tags/Python/
-http://superyzs.github.io/categories/self/
 http://superyzs.github.io/categories/Digital-Currency-and-Blockchain/

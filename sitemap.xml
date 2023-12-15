@@ -56,13 +56,6 @@
 
   
   <url>
-    <loc>http://superyzs.github.io/tags/self/</loc>
-    <lastmod>2023-12-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://superyzs.github.io/tags/Python/</loc>
     <lastmod>2023-12-15</lastmod>
     <changefreq>weekly</changefreq>
@@ -70,13 +63,6 @@
   </url>
   
 
-  
-  <url>
-    <loc>http://superyzs.github.io/categories/self/</loc>
-    <lastmod>2023-12-15</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
   
   <url>
     <loc>http://superyzs.github.io/categories/Digital-Currency-and-Blockchain/</loc>
