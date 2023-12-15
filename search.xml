@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>My New Post</title>
-    <url>/2023/12/14/My-New-Post/</url>
-    <content><![CDATA[<p>This is a simple test post.<br>How to do this!</p>
+    <title>ME.md</title>
+    <url>/2023/12/15/ME-md/</url>
+    <content><![CDATA[<p><a href="https://superyzs.github.io/Digital_Currency_and_Blockchain/Experiment%201/E-Cash%20and%20Blockchain.pdf">The Kaminsky Attack Lab.pdf</a></p>
 ]]></content>
+      <categories>
+        <category>self</category>
+      </categories>
       <tags>
         <tag>self</tag>
       </tags>
@@ -22,13 +25,10 @@
       </tags>
   </entry>
   <entry>
-    <title>ME.md</title>
-    <url>/2023/12/15/ME-md/</url>
-    <content><![CDATA[<p><a href="https://superyzs.github.io/Digital_Currency_and_Blockchain/Experiment%201/E-Cash%20and%20Blockchain.pdf">The Kaminsky Attack Lab.pdf</a></p>
+    <title>My New Post</title>
+    <url>/2023/12/14/My-New-Post/</url>
+    <content><![CDATA[<p>This is a simple test post.<br>How to do this!</p>
 ]]></content>
-      <categories>
-        <category>self</category>
-      </categories>
       <tags>
         <tag>self</tag>
       </tags>
