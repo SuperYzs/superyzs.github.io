@@ -68,8 +68,6 @@
 
 
 
-    <link rel="stylesheet" type="text/css" href="/css/search.css?v=1.1"/>
-
 
 
     <title> SuperYzs'Blog - </title>
@@ -90,7 +88,25 @@
                         <a href="/">
                             
                             
-                                Home
+                                Index
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/tags">
+                            
+                            
+                                Tags
+                            
+                        </a>
+                    </li>
+                
+                    <li class="menu-item">
+                        <a href="/categories">
+                            
+                            
+                                Categories
                             
                         </a>
                     </li>
@@ -99,7 +115,7 @@
                         <a href="/archives">
                             
                             
-                                Archive
+                                Archives
                             
                         </a>
                     </li>
@@ -113,10 +129,6 @@
                         </a>
                     </li>
                 
-                
-                    <li class="menu-item">
-                        <a id="search" href="">Search</a>
-                    </li>
                 
             </ul>
         
@@ -301,35 +313,6 @@
       </div>
     </div>
     
-<div id="search-container" class="search-container-mask">
-    <div class="search-container">
-        <input type="hidden" id="algolia_index" value="<INDEX_NAME>"/>
-        <input type="hidden" id="algolia_app_id" value="<APP_ID>"/>
-        <input type="hidden" id="algolia_token" value="<API_KEY>"/>
-        <div class="section">
-            <div class="container">
-                <div class="panel">
-                    <div class="panel-heading">
-                        Search
-                        <a id="close" href="" style="float: right; color: #363636;">
-                            <i class="fas fa-times-circle" aria-hidden="true"></i>
-                        </a>
-                    </div>
-                    <div class="panel-block">
-                        <div id="searchContainer" class="control has-icons-left">
-                            <input id="searchField" class="input" type="text" placeholder="Enter anything...">
-                            <span class="icon is-small is-left">
-                                <i class="fas fa-search" aria-hidden="true"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div id="result"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
 
     
@@ -350,10 +333,6 @@
 <script type="text/javascript" src="/js/src/bootstrap.js?v=1.1"></script>
 
     
-    <script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearch.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script type="text/javascript" src="/js/src/search.js"></script>
-
 
   </body>
 </html>
