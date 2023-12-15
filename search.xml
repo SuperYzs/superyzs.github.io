@@ -11,6 +11,18 @@
         <content type="html"><![CDATA[<p>A Chinese boy.</p>]]></content>
       
       
+      <categories>
+          
+          <category> self </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> self </tag>
+            
+        </tags>
       
     </entry>
     
@@ -21,9 +33,21 @@
       <link href="/2023/12/15/ME-md/"/>
       <url>/2023/12/15/ME-md/</url>
       
-        <content type="html"><![CDATA[<p>I’m SuperYzs.</p>]]></content>
+        <content type="html"><![CDATA[<p><a href="https://superyzs.github.io/Digital_Currency_and_Blockchain/Experiment%201/E-Cash%20and%20Blockchain.pdf">The Kaminsky Attack Lab.pdf</a></p>]]></content>
       
       
+      <categories>
+          
+          <category> self </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> self </tag>
+            
+        </tags>
       
     </entry>
     
@@ -37,6 +61,12 @@
         <content type="html"><![CDATA[<p>This is a simple test post.<br>How to do this!</p>]]></content>
       
       
+      
+        <tags>
+            
+            <tag> self </tag>
+            
+        </tags>
       
     </entry>
     
