@@ -6,15 +6,9 @@ g = 3
 x = 101
 
 
-def powermod(a, b):
-    c = a
-    for i in range(1, b):
-        c = (c * a) % p
-    return c
-
 
 def Prove():
-    R = powermod(g, r)
+    R = pow(g, r)
     # print(R)
     h = random.randint(1, p)  # hash函数太长了算不完，用randint替代一下
     # h=int(hashlib.md5(h).hexdigest(),16)
@@ -23,12 +17,12 @@ def Prove():
     return R, h, z
 
 
-f = powermod(g, x)
+f = pow(g, x)
 # print(f)
 
 
 def Verif(z, h):
-    if (powermod(g, z) - powermod(f, h) * R) % p != 0:
+    if (pow(g, z) - pow(f, h) * R) % p != 0:
         return True
     else:
         return False

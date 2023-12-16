@@ -6,35 +6,28 @@ g = 5
 r = 101
 
 
-def powermod(a, b):
-    c = a
-    for i in range(1, b):
-        c = (c * a) % p
-    return c
-
-
 def Prove(s):
     k_1 = random.randint(1, p)
     # print(k_1)
     k_2 = random.randint(1, p)
     # print(k_2)
-    f_ = powermod(f, k_1)
+    f_ = pow(f, k_1)
     # print(f_)
-    g_ = powermod(g, k_2)
+    g_ = pow(g, k_2)
     z_1 = s + r * k_1
     z_2 = s + r * k_2
     return f_, g_, z_1, z_2
 
 
-F = powermod(f, r)
+F = pow(f, r)
 # print(F)
-G = powermod(g, r)
+G = pow(g, r)
 # print(G)
 
 
 def Verif(f_, g_, z_1, z_2, s):
-    if (powermod(f, z_1) - powermod(f, s) * f_) % p == 0 and (
-        powermod(g, z_2) - powermod(g, s) * g_
+    if (pow(f, z_1) - pow(f, s) * f_) % p == 0 and (
+        pow(g, z_2) - pow(g, s) * g_
     ) % p == 0:
         return True
     else:
