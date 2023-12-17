@@ -4,7 +4,7 @@
     <title>lab_1</title>
     <url>/posts/3ed4a3d8.html</url>
     <content><![CDATA[<h1 id="实验目的"><a class="markdownIt-Anchor" href="#实验目的"></a> 实验目的</h1>
-<p>1、仔细阅读 <a href="http://curve.py">curve.py</a> 的源代码</p>
+<p>1、仔细阅读 <a href="https://github.com/lc6chang/ecc-pycrypto/blob/master/ecc/curve.py">curve.py</a> 的源代码</p>
 <p>2、理解每个函数之间的关系</p>
 <p>3、熟悉椭圆曲线上的运算操作。</p>
 <h1 id="实验器材"><a class="markdownIt-Anchor" href="#实验器材"></a> 实验器材</h1>
