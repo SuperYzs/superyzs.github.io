@@ -1,3 +1,4 @@
+http://superyzs.github.io/posts/362c9816.html
 http://superyzs.github.io/posts/661cdd66.html
 http://superyzs.github.io/posts/3ed4a3d8.html
 http://superyzs.github.io/categories/index.html
@@ -7,3 +8,4 @@ http://superyzs.github.io/tags/index.html
 http://superyzs.github.io/
 http://superyzs.github.io/tags/Python/
 http://superyzs.github.io/categories/Digital-Currency-and-Blockchain/
+http://superyzs.github.io/categories/test/

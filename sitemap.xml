@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://superyzs.github.io/posts/362c9816.html</loc>
+    
+    <lastmod>2024-01-05</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://superyzs.github.io/posts/661cdd66.html</loc>
     
     <lastmod>2023-12-18</lastmod>
@@ -58,7 +67,7 @@
 
   <url>
     <loc>http://superyzs.github.io/</loc>
-    <lastmod>2023-12-18</lastmod>
+    <lastmod>2024-01-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -66,7 +75,7 @@
   
   <url>
     <loc>http://superyzs.github.io/tags/Python/</loc>
-    <lastmod>2023-12-18</lastmod>
+    <lastmod>2024-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -75,7 +84,14 @@
   
   <url>
     <loc>http://superyzs.github.io/categories/Digital-Currency-and-Blockchain/</loc>
-    <lastmod>2023-12-18</lastmod>
+    <lastmod>2024-01-05</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://superyzs.github.io/categories/test/</loc>
+    <lastmod>2024-01-05</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
