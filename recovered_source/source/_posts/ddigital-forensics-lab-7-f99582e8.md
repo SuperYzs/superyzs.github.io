@@ -1,0 +1,44 @@
+---
+title: "Ddigital-Forensics-Lab-7"
+date: "2024-04-08T14:12:11.000Z"
+updated: "2024-04-18T12:42:39.306Z"
+description: "学会使用 winhex 恢复硬盘分区"
+categories:
+  - 计算机取证学
+tags:
+  - Windows
+---
+
+<h1 id="实验目的">实验目的</h1>
+<p>学会使用 winhex 恢复硬盘分区。</p>
+<h1 id="实验环境">实验环境</h1>
+<p>安装有 winhex 的 windows 系统、shiyan7.vhd 文件。</p>
+<h1 id="实验步骤">实验步骤</h1>
+<p>1、将 shiyan.vhd 挂载到C盘。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.1.png" alt="将 shiyan.vhd 挂载到C盘" /></p>
+<p>2、搜索 NTFS 的 MBR 十六进制特征码 EB5290 。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.2.png" alt="搜索结果" /></p>
+<p>3、分析得第一个扇区的信息：分区大小（在偏移 0x28H处） ：344063（0x53fff），结束扇区（见左下角）：344191（0x54080）；相减得起始扇区：128（80）。同理可得第二个扇区的信息：分区大小：303103（0x49fff） ，结束位置：647295（9e07f），起始扇区：344192（54080）。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.3.png" alt="第一个扇区的信息" /><br />
+<img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.4.png" alt="第二个扇区的信息" /></p>
+<p>4、在分区最前面找到分区终止符 55 AA ，在前面修改为正确分区。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.5.png" alt="扇区信息修改前" /><br />
+<img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.6.png" alt="扇区信息修改后" /></p>
+<p>5、保存后发现成功分区。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.7.png" alt="磁盘管理显示分区成功" /><br />
+<img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.8.png" alt="winhex显示分区成功" /></p>
+<p>6、在第一个分区的 MFT 中 ctrl + f 搜索关键词 abc.txt 。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.9.png" alt="搜索关键词 abc.txt" /></p>
+<p>7、经过尝试发现搜索结果2是有效的。在上方复制并查找16进制数值。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.10.png" alt="查找16进制数值" /></p>
+<p>8、由下图可以获取以下消息：文件大小：1B52(十进制 6994)；簇数：D502；首簇号：07(十进制 07)。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.11.png" alt="获取文件信息" /><br />
+9、ctrl + g 搜索首簇号的位置。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.12.png" alt="搜索搜簇号的位置" /></p>
+<p>10、alt + g 输入文件大小查找末bit的位置。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.13.png" alt="寻找末bit的位置" /><br />
+<img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.14.png" alt="末bit的位置" /></p>
+<p>11、保存为abc.txt，恢复成功。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_7/1.15.png" alt="abc.txt的部分内容" /></p>
+<p><a href="https://jingyan.baidu.com/article/a24b33cd4cf08358ff002b3f.html">参考文章1</a><br />
+<a href="http://www.webkaka.com/info/archives/system/2015/05/282147/">参考文章2</a></p>

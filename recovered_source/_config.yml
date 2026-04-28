@@ -1,0 +1,35 @@
+title: "superyzs.github.io"
+subtitle: ""
+description: "Recovered from generated static files"
+author: "Recovered"
+language: zh-CN
+timezone: UTC
+
+url: https://superyzs.github.io
+root: /
+permalink: posts/:title.html
+
+theme: next
+
+# Local search (restored)
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+archive_generator:
+  per_page: 10
+  yearly: true
+  monthly: true
+
+category_generator:
+  per_page: 10
+
+tag_generator:
+  per_page: 10

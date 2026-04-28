@@ -1,0 +1,34 @@
+---
+title: "Ddigital-Forensics-Lab-9"
+date: "2024-04-21T16:04:08.000Z"
+updated: "2024-04-21T16:24:28.199Z"
+description: "了解 SIM 卡中存储的信息，学会对其进行取证分析。"
+categories:
+  - 计算机取证学
+tags:
+  - Windows
+---
+
+<h1 id="实验目的">实验目的</h1>
+<p>了解 SIM 卡中存储的信息，学会对其进行取证分析。</p>
+<h1 id="实验环境">实验环境</h1>
+<p>安装有 winhex 的 windows 系统、SIM_2G_3G SIM.zip 文件。</p>
+<h1 id="实验步骤">实验步骤</h1>
+<p>问题<br />
+1、手动在镜像文件中找到最后一个联系人和对应的号码。提示：所有的联系人都存储在基本文件 6F3A 中。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_9/1.1.png" alt="最后一个联系人和对应的号码" /></p>
+<p>由此可知，最后一个联系人对应的号码所记录的内容为 0x06810391098011。其中0x06表示电话号码为6个字节，0x81表示该号码是一个未知的电话号码，接下来的 0x0391098011按反向半字节格式存储可知号码为 3019900811。而向上寻找可以得知，联系人姓名为Woody Woolenson。</p>
+<p>问题 2、找到属于 Hanco Car 的号码。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_9/1.2.png" alt="无法找到属于 Hanco Car 的号码" /></p>
+<p>无法找到属于 Hanco Car 的号码。</p>
+<p>问题 3、SIM 卡文件系统转储中共包含多少条信息。</p>
+<p>共包含 12+28+2=42 条信息。</p>
+<p>问题 4、对转储的 SIM 卡文件系统中最后一条短信的各部分进行转换，确保解码短信中所有记录。提示：短信在目录 3F00/7F10/下的 6F3C 文件中。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_9/1.3.png" alt="最后一条短信" /></p>
+<p>由此可知，最后一条短信为上图所示。其中 0x00 表示该短信为未读状态；0x07 表示接下来七个字节为服务中心号码；0x91 表示接下来是一个国际号码；0x2160130310F2 表示服务中心号码为1206313012；接下来的 0x91 表示接下来是一个国际号码；0x2104374120F2 表示发送者号码为 12407314022；0x00 表示使用默认的 7 位编码来编码短信正文；0x608072615033 表示时间为 2006 年 8 月 27 日，时间为 16:05:33；接下来的内容为短信内容，解码后为Email: <a href="mailto:nuthanhtran@hotmail.com">nuthanhtran@hotmail.com</a> Password: kevinhong</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_9/1.4.png" alt="短信内容解码" /></p>
+<p>问题 5、确定文件系统镜像文件中是否包含删除的短信。</p>
+<p>由问题 4 的短信可知，该短信已被删除，因此文件系统镜像文件中包含删除的短信。</p>
+<p>问题 6、这张 SIM 卡的 ICCID 是什么，并对 ICCID 进行简要分析。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_9/1.5.png" alt="SIM 卡的 ICCID 内容" /></p>
+<p>由此可知，0x98 表示由全球电信行业分配的标识符；0x012 用于标识 SIM 卡发行的国家；0x602 指示 SIM 卡注册的移动网络；0x012559597 是 SIM 卡的具体序列号；0xF 用于确保 ICCID 的完整性和正确性。</p>

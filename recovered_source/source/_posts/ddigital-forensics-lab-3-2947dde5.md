@@ -1,0 +1,33 @@
+---
+title: "Ddigital-Forensics-Lab-3"
+date: "2024-03-16T16:16:42.000Z"
+updated: "2024-03-19T07:51:25.193Z"
+description: "学会在kali linux中利用autopsy创建实验案例，并利用autopsy对案例进行分析。"
+categories:
+  - 计算机取证学
+tags:
+  - Linux
+---
+
+<h1 id="实验目的">实验目的</h1>
+<p>学会在kali linux中利用autopsy创建实验案例，并利用autopsy对案例进行分析。</p>
+<h1 id="实验环境">实验环境</h1>
+<p>安装有kali linux的虚拟机、磁盘镜像文件thumbimage_fat.dd。</p>
+<h1 id="实验步骤">实验步骤</h1>
+<p>1、打开autopsy取证分析浏览器，<br />
+在管理员权限下运行<code>autospsy</code>，登录：<code>http://localhost:9999/autops</code>。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_3/1.1.png" alt="运行程序得到的结果" /></p>
+<p>2、在autopsy中创建新案例，记录下autopsy计算的镜像文件的哈希值。</p>
+<p>案例信息：受攻击web服务器的主机名为<code>www.hacker.ucs.ca</code>，实验中使用的&quot;thumbimage_fat.dd&quot;是在犯罪现场获取的磁盘镜像。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_3/1.2.png" alt="计算除MD5哈希值" /></p>
+<p>3、利用autopsy进行电子证据磁盘分析。</p>
+<p>完成创建后，在案例分析中找到keyword<br />
+search，在磁盘镜像中搜索关键字&quot;Wikipedia&quot;,将调查一步一步地深入下去，并回答下列问题。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_3/1.3.png" alt="搜索关键字编码为ASCII格式" /></p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_3/1.4.png" alt="搜索关键字编码为Unicode格式" /></p>
+<p>问题1：当搜索关键字编码为ASCII格式时，命中次数是多少</p>
+<p>答：1次。</p>
+<p>问题2：关键字结果所在数据单元的编号（或地址）是什么</p>
+<p>答：Unit 8291 (Hex - Ascii)。</p>
+<p>问题3：当搜索关键字编码为Unicode格式时，命中次数是多少</p>
+<p>答：0次。</p>
