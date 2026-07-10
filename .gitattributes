@@ -1,0 +1,8 @@
+* text=auto eol=lf
+
+*.gif binary
+*.png binary
+
+# Recovered HTML preserves meaningful spacing inside code samples.
+source/_posts/*.html whitespace=-trailing-space
+source/google*.html whitespace=-trailing-space

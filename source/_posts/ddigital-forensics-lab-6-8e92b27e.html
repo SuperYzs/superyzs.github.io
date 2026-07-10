@@ -1,0 +1,55 @@
+---
+title: "Ddigital-Forensics-Lab-6"
+date: "2024-04-18T12:13:21.000Z"
+permalink: posts/8e92b27e.html
+updated: "2024-04-18T12:42:39.305Z"
+description: "了解哈希、文件签名、隐写术。"
+categories:
+  - 计算机取证学
+tags:
+  - Windows
+---
+
+
+<h1 id="实验目的">实验目的</h1>
+<p>了解哈希、文件签名、隐写术。</p>
+<h1 id="实验环境">实验环境</h1>
+<p>安装有 x-ways forensics 的 windows 系统、file signature test 文件。</p>
+<h1 id="实验步骤">实验步骤</h1>
+<p>1、这个文件默认 pdf 拓展名，可以正常打开查看。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.1.png" alt="以PDF形式打开" /></p>
+<p>2、改成 zip 拓展名，依然可以打开查看。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.2.png" alt="以ZIP形式打开" /></p>
+<p>3、改成 html，打开后按提示操作，又可以生成 png、exe、mp4 格式的文件，而且全部可以打开查看。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.3.png" alt="以HTML形式打开，并将PDF文件拖入其中" /></p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.4.png" alt="生成.ex,.mp4,.png,.pdf文件" /></p>
+<p>（上面的操作在主机中进行，接下来的操作都在虚拟机 win7 中进行）</p>
+<p>4、打开 x-ways forensics 先在 help -- setting 中把语言改为中文，然后在 文件 -- 创建案例 中创建新案例。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.5.png" alt="创建新案例" /></p>
+<p>5、打开 文件 -- 打开目录，打开文件所在目录。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.6.png" alt="打开文件目录" /></p>
+<p>6、选中带计算文件，在 专业工具 -- 磁盘快照 中进行 MD5 计算。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.7.png" alt="计算 md5 值" /></p>
+<p>7、发现未显示 md5 值，单击项目名称列表上面一行，打开显示列表，更改 md5 值为 500，发现 md5 值已经显示且都相同。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.8.png" alt="显示 md5 值" /></p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.9.png" alt="计算 md5 值" /></p>
+<p>8、计算 sha1 值，发现并不完全相同：由网页生成的 mp4 文件、ex 文件和 png 文件拥有不同的 sha1 值，而之前直接改后缀的 zip 文件、html 文件、pdf 文件和 网页生成的 pdf 文件拥有相同的 sha1 值。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.10.png" alt="sha1 值不同" /></p>
+<p>9、查看文件签名：可以发现一个文件有多个不同的签名。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_6/1.11.png" alt="sha1 值不同" /></p>
+<h1 id="探究报告">探究报告</h1>
+<h2 id="查看这些文件的签名是否一致">查看这些文件的签名，是否一致</h2>
+<p>答：并不完全相同：由网页生成的 mp4 文件、ex 文件和 png 文件拥有不同的签名，而之前直接改后缀的 zip 文件、html 文件、pdf 文件和 网页生成的 pdf 文件拥有相同的签名。</p>
+<h2 id="上述-pdf-文件和-html-及-zip-文件为什么更改拓展名后可以被不同应用打开">上述 pdf 文件和 html 及 zip 文件，为什么更改拓展名后可以被不同应用打开</h2>
+<p>答：一个文件内含有多个文件签名，不同的应用程序在读取这个文件时，只找对应的文件签名部分读取。</p>
+<h2 id="取证软件对上述文件进行签名分析的结果及启示文件签名的用途及理解及局限">取证软件对上述文件进行签名分析的结果及启示（文件签名的用途及理解及局限）</h2>
+<p>1、文件签名的用途：文件签名是一种用来识别文件类型的技术，它是一种特定的字节序列，它们出现在文件的特定位置，用来识别文件的类型。</p>
+<p>2、文件签名的理解：文件签名是一种特定的字节序列，它们出现在文件的特定位置，用来识别文件的类型。不同的应用程序在读取这个文件时，只找对应的文件签名部分读取。</p>
+<p>3、文件签名的局限性在于，一个文件不一定只有一个文件签名，所以找到某个格式的签名不能作为判断这个文件的唯一标准。</p>
+<h2 id="上述所有文件的-md5-sha1-值比对情况">上述所有文件的 md5、sha1 值比对情况</h2>
+<p>答：md5 值完全相同，sha1 值并不完全相同：由网页生成的 mp4 文件、ex 文件和 png 文件拥有不同的 sha1 值，而之前直接改后缀的 zip 文件、html 文件、pdf 文件和 网页生成的 pdf 文件拥有相同的 sha1 值。</p>
+<h2 id="对取证的启示">对取证的启示</h2>
+<p>1、留心文件大小：超出正常格式大小太多的文件，很可能隐藏了其他文件。</p>
+<p>2、更改拓展名不会更改文件内容，只会更改打开该文件的默认应用，而相应的应用会打开不同的部分，因此可以被不同应用打开。</p>
+<p>3、md5 值易被碰撞，md5 值相同其他 hash 值不一定相同。</p>
+

@@ -1,0 +1,38 @@
+title: "SuperYzs'Blog"
+subtitle: ""
+description: ""
+author: "Zhansheng Ye"
+language: zh-CN
+timezone: Asia/Shanghai
+
+url: https://superyzs.github.io
+root: /
+permalink: posts/:name.html
+
+theme: next
+
+# Local search (restored)
+search:
+  path: search.xml
+  field: post
+  format: html
+  limit: 10000
+
+sitemap:
+  path: sitemap.xml
+
+index_generator:
+  path: ''
+  per_page: 10
+  order_by: -date
+
+archive_generator:
+  per_page: 10
+  yearly: true
+  monthly: true
+
+category_generator:
+  per_page: 10
+
+tag_generator:
+  per_page: 10

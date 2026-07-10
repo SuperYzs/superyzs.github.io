@@ -1,0 +1,97 @@
+# Recovered NexT theme config, matched to the generated site as closely as possible.
+scheme: Muse
+darkmode: false
+
+menu:
+  home: / || fa fa-home
+  about: /about/ || fa fa-user
+  tags: /tags/ || fa fa-tags
+  categories: /categories/ || fa fa-th
+  archives: /archives/ || fa fa-archive
+
+menu_settings:
+  icons: true
+  badges: false
+
+sidebar:
+  position: left
+  display: post
+  padding: 18
+  offset: 12
+
+avatar:
+  url: /images/avatar.gif
+  rounded: false
+  rotated: false
+
+site_state: true
+
+social:
+  GitHub: https://github.com/SuperYzs || fab fa-github
+  E-Mail: mailto:yezhansheng10@gmail.com || fa fa-envelope
+  StackOverflow: https://stackoverflow.com/users/23611701/zhansheng-ye || fab fa-stack-overflow
+  Bilibili: https://space.bilibili.com/501729919 || fab fa-bilibili
+
+social_icons:
+  enable: true
+  icons_only: false
+  transition: false
+
+toc:
+  enable: true
+  number: true
+  wrap: false
+  expand_all: false
+  max_depth: 6
+
+codeblock:
+  copy_button:
+    enable: true
+    show_result: true
+  fold:
+    enable: false
+    height: 500
+
+motion:
+  enable: true
+  async: false
+  transition:
+    menu_item: fadeInDown
+    post_block: fadeIn
+    post_header: fadeInDown
+    post_body: fadeInDown
+    coll_header: fadeInLeft
+    sidebar: fadeInUp
+
+pace:
+  enable: true
+  color: blue
+  theme: minimal
+
+comments:
+  style: tabs
+  active:
+  storage: true
+  lazyload: false
+  nav:
+
+gitalk:
+  enable: true
+  github_id: SuperYzs
+  repo: BlogComments
+  client_id: 5c08e4832554e7a517fd
+  client_secret: 160583afd57209fe1f8cda60cf9114e369a13104
+  admin_user: SuperYzs
+  distraction_free_mode: true
+  proxy: https://cors-anywhere.azm.workers.dev/https://github.com/login/oauth/access_token
+
+local_search:
+  enable: true
+  trigger: auto
+  top_n_per_article: 1
+  unescape: false
+  preload: false
+
+vendors:
+  internal: local
+  plugins: cdnjs
