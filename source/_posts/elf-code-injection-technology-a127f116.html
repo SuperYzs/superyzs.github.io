@@ -1,0 +1,98 @@
+---
+title: "ELF-Code-Injection-Technology"
+date: "2024-06-03T09:01:53.000Z"
+permalink: posts/a127f116.html
+updated: "2024-06-03T09:21:13.053Z"
+description: "学习几种将代码注入现有 ELF 二进制文件的基本技术，从而允许修改或者扩展二进制文件的行为。"
+categories:
+  - 逆向工程与汇编语言
+tags:
+  - Linux
+---
+
+
+<h1 id="实验目的">实验目的</h1>
+<p>学习几种将代码注入现有 ELF 二进制文件的基本技术，从而允许修改或者扩展二进制文件的行为。</p>
+<h1 id="实验原理">实验原理</h1>
+<p>使用常用分析工具。</p>
+<h1 id="实验环境">实验环境</h1>
+<p>1. 使用 binary 虚拟机，即在 Lab 2 中已经配置过的环境（包括时间戳）。</p>
+<p>2. 实验所需文件位于/home/binary/code/chapter7 目录。</p>
+<h1 id="task-1使用十六进制编辑器修改-bare-metal-二进制文件">Task 1：使用十六进制编辑器修改 Bare-Metal 二进制文件</h1>
+<h2 id="观察-off-by-one-漏洞">观察 off-by-one 漏洞</h2>
+<p>步骤：</p>
+<p>1、输入 <code>gcc -o xor_encrypt.c xor_encrypt.c</code> 指令编译出可执行文件xor_encrypt。</p>
+<p>2、输入 <code>./xor_encrypt xor_encrypt.c encrypted foobar</code> 指令，将文件xor_encrypt.c加密为文件encrypted。</p>
+<p>3、输入 <code>xxd xor_encrypt.c | tail</code> 指令，查看文件xor_encrypt.c。</p>
+<p>4、输入 <code>xxd encrypted | tail</code> 指令，查看文件encrypted。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/1.1.png" alt="输出结果" /></p>
+<p>观察输出结果可以对比发现，只有最后一个字节 0x0a 未被加密。</p>
+<h2 id="修复-off-by-one-漏洞">修复 off-by-one 漏洞</h2>
+<p>步骤：</p>
+<p>1、查找导致漏洞的字节：输入 <code>objdump -M intel -d xor_encrypt</code> 指令反汇编二进制文件。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/1.2.png" alt="输出结果" /></p>
+<p>由输出结果发现与指导书不同，在 0x400b11 处发现了 test 指令，可以得知我们需要将 0x400b34 处的 jne 指令改为 jae 指令。</p>
+<p>2、替换违规字节：输入 <code>make</code> 指令和 <code>hexedit xor_encrypt</code> 指令在十六进制编辑器中打开 xor_encrypt。按 <code>\</code> 健，输入 75ea 查找 jne 指令，将其改为 73ea，即 jae 指令。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/1.3.png" alt="输出结果" /></p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/1.4.png" alt="输出结果" /></p>
+<p>输入 <code>objdump -M intel -d xor_encrypt</code> 指令反汇编经过修改的二进制文件，发现0x400b34 处的 jne 指令已经被改为 jae 指令。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/1.5.png" alt="输出结果" /></p>
+<p>输入 <code>./xor_encrypt xor_encrypt.c encrypted foobar 和 xxd encrypted | tail</code> 指令，发现 encrypt 的最后一个字节也被加密了，且前面的字节与修改前完全一致。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/1.6.png" alt="输出结果" /></p>
+<h1 id="task-2使用-ld_preload-修改共享库行为">Task 2：使用 LD_PRELOAD 修改共享库行为</h1>
+<h2 id="堆溢出漏洞">堆溢出漏洞</h2>
+<p>步骤：</p>
+<p>1、输入 <code>./heapoverflow 13 'Hello world!'</code> 指令，正常输出。</p>
+<p>2、输入 <code>./heapoverflow 13 'perl -e 'print &quot;A&quot;x100''</code> 指令，发现程序崩溃。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/2.1.png" alt="输出结果" /></p>
+<p>Q：根据执行结果，程序出现崩溃的具体原因是什么？</p>
+<p>A：根据执行结果，程序尝试执行 free() 函数，由于内存分配或释放过程中出现了问题，导致了 free(): invalid next size (fast) 错误。而程序接收了命令行参数 13 和 &quot;A&quot;x100 作为输入，输入的100个 &quot;A&quot; 太长导致堆溢出。</p>
+<h2 id="修复堆溢出漏洞">修复堆溢出漏洞</h2>
+<p>输入 <code>LD_PRELOAD='pwd'/heapcheck.so ./heapoverflow 13 'perl -e 'print &quot;A&quot;x100''</code> 指令，在启动 heapoverflow 程序时，改变LD_PRELOAD 环境变量的定义，这使得链接器预加载指定的库文件 <a href="http://heapcheck.so">heapcheck.so</a>，成功检测到不安全的复制行为，输出错误，并安全地终止程序，因此程序没有崩溃。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/2.2.png" alt="输出结果" /></p>
+<h1 id="task-3注入代码节code-section">Task 3：注入代码节（Code Section）</h1>
+<p>步骤：</p>
+<p>1、输入 <code>ls hello.bin</code> 指令，查看文件 hello.bin。</p>
+<p>2、输入 <code>./elfinject</code> 指令查看 elfinject 的使用方法。</p>
+<p>3、输入 <code>cp /bin/ls .</code> 指令使用 /bin/ls 的副本作为主体二进制文件。</p>
+<p>4、输入 <code>./ls</code> 指令发现注入之前表现正常。</p>
+<p>5、输入 <code>readlf --wide --headers ls</code> 指令查看 ls 的头部信息。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/3.1.png" alt="输出结果" /></p>
+<p>6、输入 <code>./elfinject ls hello.bin &quot;.injected&quot; 0x800000 0</code> 指令将 hello.bin 文件注入 ls 二进制文件中，将节附加到二进制文件的尾部。</p>
+<p>7、输入 <code>readelf --wide --headers ls</code> 指令显示 ls 二进制文件现在包含了一个名为 .injecte 的代码节，以及包含此节的 PT_LOAD 类型的新可执行段。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/3.2.png" alt="输出结果" /></p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/3.4.png" alt="输出结果" /></p>
+<p>8、输入 <code>./ls</code> 指令发现二进制文件现在启动时会运行注入的代码，输出 hello world!<br />
+消息；然后，注入的代码将执行权交还给文件的原始入口点，以便恢复输出目录列表的正常行为。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/3.3.png" alt="输出结果" /></p>
+<h1 id="task-4调用注入的代码">Task 4：调用注入的代码</h1>
+<h2 id="入口点修改">入口点修改</h2>
+<p>步骤：</p>
+<p>1、输入 <code>gedit hello.s</code> 指令打开 hello.s 文件，发现原始入口点为 0x4049a0。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.1.png" alt="输出结果" /></p>
+<p>2、输入 <code>nasm -f bin -o hello.bin hello.s</code> 指令将 hello.s 汇编到原始二进制文件hello.bin中。</p>
+<p>3、输入 <code>cp /bin/ ls.entry</code> 指令 将/bin/ls 二进制文件复制到 ls.entry。</p>
+<p>4、输入 <code>./elfinject ls.entry hello.bin &quot;.injected&quot; 0x800000 -1</code> 指令将刚刚准备好的代码注入加载地址为 0x800000 的二进制文件中。</p>
+<p>5、输入 <code>readelf -h ./ls.entry</code> 指令查看 ls.entry 的头部信息，可以看到二进制文件的原始入口点 0x4049a0。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.2.png" alt="输出结果" /></p>
+<p>6、输入 <code>readelf --wide -S ls.entry</code> 指令可以看到 0x800e78 是新地址。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.5.png" alt="输出结果" /></p>
+<p>7、输入 <code>./ls.entry</code> 指令发现与正常的 ls 指令一致。</p>
+<p>8、输入 <code>hexedit ./ls.entry</code> 指令打开十六进制编辑器，按 <code>\</code> 健，由于是小端编码，于是我们输入 a04940 查找原始入口点，将其改为780e80。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.3.png" alt="输出结果" /></p>
+<p>9、输入 <code>readelf ./ls.entry</code> 指令查看 ls.entry 的头部信息，可以看到二进制文件的原始入口点 0x800e78。</p>
+<p>10、输入 <code>./ls.entry</code> 指令会在显示目录列表之前输出 &quot;hello world&quot;。此时已成功覆盖了入口点。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.4.png" alt="输出结果" /></p>
+<h2 id="劫持构造函数和析构函数">劫持构造函数和析构函数</h2>
+<p>步骤：</p>
+<p>1、输入 <code>nasm -f bin -o hello-ctor.bin hello-ctor.s</code> 指令将 hello-ctor.s 汇编到原始二进制文件hello-ctor.bin中。</p>
+<p>2、输入 <code>cp /bin/ls ls.ctor</code> 指令 将/bin/ls 二进制文件复制到 ls.ctor。</p>
+<p>3、输入 <code>./elfinject ls.ctor hello-ctor.bin &quot;.injected&quot; 0x800000 -1</code> 指令将刚刚准备好的代码注入加载地址为 0x800000 的二进制文件中。</p>
+<p>4、输入 <code>readelf --wide -S ls.ctor</code> 指令可以看到 0x800e78 是新地址。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.5.png" alt="输出结果" /></p>
+<p>5、输入 hexedit ls.ctor 指令打开十六进制编辑器，按 <code>\</code> 键，由于是小端编码，于是我们输入 a04940 查找原始入口点，将其改为 780e80。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.6.png" alt="输出结果" /></p>
+<p>6、输入 <code>objdump ls.ctor -s --section=.init_array</code> 指令查看 .init_array 节的内容。</p>
+<p>7、输入 <code>./ls.ctor</code> 指令发现先显示&quot;hello world&quot;消息，然后按正常方式输出目录列表。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/ELF%20Code%20Injection%20Technology/4.7.png" alt="输出结果" /></p>
+

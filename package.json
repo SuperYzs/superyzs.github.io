@@ -1,0 +1,33 @@
+{
+  "name": "superyzs-blog",
+  "version": "1.0.0",
+  "description": "Source code for https://superyzs.github.io/",
+  "private": true,
+  "hexo": {
+    "version": "7.3.0"
+  },
+  "scripts": {
+    "clean": "hexo clean",
+    "build": "hexo generate && node build-tools/generate-sitemap-txt.mjs",
+    "check": "npm run clean && npm run build && node build-tools/verify-build.mjs",
+    "server": "hexo server"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "css": "^3.0.0",
+    "hexo": "^7.0.0",
+    "hexo-cli": "^4.3.2",
+    "hexo-generator-archive": "^2.0.0",
+    "hexo-generator-category": "^2.0.0",
+    "hexo-generator-index": "^3.0.0",
+    "hexo-generator-search": "^2.4.0",
+    "hexo-generator-sitemap": "^3.0.1",
+    "hexo-generator-tag": "^2.0.0",
+    "hexo-renderer-marked": "^6.0.0",
+    "hexo-renderer-stylus": "^3.0.1",
+    "hexo-server": "^3.0.0",
+    "hexo-theme-next": "^8.19.1"
+  }
+}

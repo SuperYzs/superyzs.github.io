@@ -1,0 +1,37 @@
+---
+title: "Ddigital-Forensics-Lab-8"
+date: "2024-04-21T16:04:04.000Z"
+permalink: posts/692a9f79.html
+updated: "2024-04-21T16:24:46.566Z"
+description: "认识 GPS 设备中存储的信息，并运用工具进行简单分析。"
+categories:
+  - 计算机取证学
+tags:
+  - Windows
+---
+
+
+<h1 id="实验目的">实验目的</h1>
+<p>认识 GPS 设备中存储的信息，并运用工具进行简单分析。</p>
+<h1 id="实验环境">实验环境</h1>
+<p>安装有 AccessData FTK Imager、GPX Editor 的 PC、gps.dd.001 文件。</p>
+<h1 id="实验步骤">实验步骤</h1>
+<p>1、添加 gps.dd.001 的 GPS 设备镜像作为证据项。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_8/1.1.png" alt="添加 gps.dd.001" /></p>
+<p>2、导出 GPX 文件。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_8/1.2.png" alt="导出 GPX 文件" /></p>
+<p>根据 current.gpx 文件的内容，可以回答以下问题：</p>
+<p>问题 1、在&quot;current.gpx&quot;文件中有多少个航迹点？</p>
+<p>查阅资料可知，航迹点在文本文档中用 &lt;trkpt<br />
+来表示，因此只需要在文本编辑器中搜索 &lt;trkpt 即可得到航迹点的数量。</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_8/1.3.png" alt="搜索 trkpt" /></p>
+<p>由此可知，在&quot;current.gpx&quot;文件中有7626个航迹点。</p>
+<p>问题 2、在&quot;current.gpx&quot;文件中第一个航迹点的经纬度是多少？</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_8/1.4.png" alt="第一个航迹点的经纬度" /></p>
+<p>由此可知，第一个航迹点的维度为43.813697N，经度为79.361316W。</p>
+<p>问题 3、在&quot;current.gpx&quot;文件中有多少个航点？</p>
+<p><img src="https://raw.githubusercontent.com/SuperYzs/MarkdownPicture/main/Digital%20Forensics/Lab_8/1.5.png" alt="第一个航迹点的经纬度" /></p>
+<p>由此可知，在&quot;current.gpx&quot;文件中有45个航点。</p>
+<p>问题 4、在&quot;current.gpx&quot;文件中第一个航点的经纬度是多少</p>
+<p>由图 5 可知，第一个航点的纬度为44.133530N，经度为79.131322W。</p>
+
